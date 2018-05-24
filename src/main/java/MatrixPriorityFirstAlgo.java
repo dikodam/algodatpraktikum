@@ -5,6 +5,15 @@ public class MatrixPriorityFirstAlgo {
     public static final String DIJKSTRA = "d";
     
     private int[][] adm;
+    
+    public int[] getParent() {
+        return parent;
+    }
+    
+    public int[] getPriority() {
+        return priority;
+    }
+    
     private int[] parent;
     private int[] priority;
     private int n;
@@ -17,6 +26,7 @@ public class MatrixPriorityFirstAlgo {
     }
     
     public void matrixPriorityFirst(String mode) {
+        init();
         int min = 1;
         int k;
         while (min != 0) {

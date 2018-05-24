@@ -9,6 +9,14 @@ public class MatrixPriorityFirstAlgoTest {
      * # | /     |
      * # 4 -(3)- 3
      */
+    /**
+     * Lösung
+     * # 1 -(1)- 2
+     * #       / |
+     * #    (2) (1)
+     * #   /     |
+     * # 4       3
+     */
     int[][] myAdm = {
         {0, 0, 0, 0, 0},
         {0, 0, 1, 0, 4},
@@ -19,14 +27,23 @@ public class MatrixPriorityFirstAlgoTest {
     
     @Test
     public void testDasDing() {
-        print(myAdm);
+        printMatrix(myAdm);
         MatrixPriorityFirstAlgo tested = new MatrixPriorityFirstAlgo(myAdm);
         tested.matrixPriorityFirst(MatrixPriorityFirstAlgo.PRIM);
-        print(myAdm);
         
+        printArray(tested.getParent(), "parent");
+        printArray(tested.getPriority(), "priority");
     }
     
-    private void print(int[][] myAdm) {
+    private void printArray(int[] array, String name) {
+        System.out.print("Array " + name + ":[");
+        for (int i = 1; i < array.length; i++) {
+            System.out.print(array[i] + " ");
+        }
+        System.out.println("]");
+    }
+    
+    private void printMatrix(int[][] myAdm) {
         System.out.println("Array:");
         for (int i = 1; i < myAdm.length; i++) {
             for (int j = 1; j < myAdm.length; j++) {
