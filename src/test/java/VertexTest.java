@@ -6,11 +6,11 @@ import static org.hamcrest.core.Is.is;
 
 public class VertexTest {
     
-    Vertex tested;
+    Node tested;
     
     @Before
     public void setUp() throws Exception {
-        tested = new Vertex(42);
+        tested = new Node(42);
     }
     
     @Test
