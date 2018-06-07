@@ -1,6 +1,6 @@
 public class MatrixPriorityFirstAlgo {
     
-    static final int infinite = Integer.MAX_VALUE - 1;
+    public static final int infinite = Integer.MAX_VALUE - 1;
     public static final String PRIM = "p";
     public static final String DIJKSTRA = "d";
     
@@ -29,6 +29,8 @@ public class MatrixPriorityFirstAlgo {
         init();
         int minPrioIndex = 1;
         int k;
+        
+        // in jeder Iteration wird ein Knoten in den zu bauenden Graphen aufgenommen
         while (minPrioIndex != 0) {
             k = minPrioIndex;
             priority[k] = -priority[k];

@@ -61,9 +61,9 @@ public class MatrixPriorityFirstAlgoTest {
     @Test
     public void wirklichKleinsterWert() {
         MatrixPriorityFirstAlgo tested = new MatrixPriorityFirstAlgo(myAdm);
-        int minimum = -(tested.infinite + 1);
-        System.out.println("inf: \n" + tested.infinite);
-        System.out.println("inf + 1: \n" + (tested.infinite + 1));
+        int minimum = -(MatrixPriorityFirstAlgo.infinite + 1);
+        System.out.println("inf: \n" + MatrixPriorityFirstAlgo.infinite);
+        System.out.println("inf + 1: \n" + (MatrixPriorityFirstAlgo.infinite + 1));
         System.out.println("minimum: \n" + minimum);
         IntPredicate kleinerMinimum = i -> i < minimum;
         IntStream.rangeClosed(Integer.MIN_VALUE + 1, Integer.MAX_VALUE)
