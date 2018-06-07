@@ -29,7 +29,6 @@ public class MatrixPriorityFirstAlgo {
         init();
         int minPrioIndex = 1;
         int k;
-        
         // in jeder Iteration wird ein Knoten in den zu bauenden Graphen aufgenommen
         while (minPrioIndex != 0) {
             k = minPrioIndex;
@@ -44,7 +43,7 @@ public class MatrixPriorityFirstAlgo {
             
             for (int t = 1; t <= n; t++) {
                 if (priority[t] < 0) {
-                    if (adm[k][t] > 0 && priority[t] < -prio(mode, k, t)) {
+                    if ((adm[k][t] > 0) && (priority[t] < -prio(mode, k, t))) {
                         priority[t] = -prio(mode, k, t);
                         parent[t] = k;
                     }
@@ -66,7 +65,7 @@ public class MatrixPriorityFirstAlgo {
     }
     
     public void init() {
-        for (int i = 1; i < n; i++) {
+        for (int i = 1; i <= n; i++) {
             priority[i] = -infinite;
             parent[i] = 0;
         }
