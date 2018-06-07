@@ -1,6 +1,6 @@
 public class MatrixPriorityFirstAlgo {
     
-    private static final int infinite = Integer.MAX_VALUE - 1;
+    static final int infinite = Integer.MAX_VALUE - 1;
     public static final String PRIM = "p";
     public static final String DIJKSTRA = "d";
     
@@ -27,23 +27,27 @@ public class MatrixPriorityFirstAlgo {
     
     public void matrixPriorityFirst(String mode) {
         init();
-        int min = 1;
+        int minPrioIndex = 1;
         int k;
-        while (min != 0) {
-            k = min;
+        while (minPrioIndex != 0) {
+            k = minPrioIndex;
             priority[k] = -priority[k];
-            min = 0;
+            minPrioIndex = 0;
+            
+            // DIJKSTRA ONLY vvvv
             if (priority[k] == infinite) {
                 priority[k] = 0;
             }
-            for (int t = 1; t < n; t++) {
+            // DIJKSTRA ONLY ^^^^
+            
+            for (int t = 1; t <= n; t++) {
                 if (priority[t] < 0) {
                     if (adm[k][t] > 0 && priority[t] < -prio(mode, k, t)) {
                         priority[t] = -prio(mode, k, t);
                         parent[t] = k;
                     }
-                    if (priority[t] > priority[min]) {
-                        min = t;
+                    if (priority[t] > priority[minPrioIndex]) {
+                        minPrioIndex = t;
                     }
                 }
             }
