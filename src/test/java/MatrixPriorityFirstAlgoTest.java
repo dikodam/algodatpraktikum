@@ -36,6 +36,7 @@ public class MatrixPriorityFirstAlgoTest {
         
         printArray(tested.getParent(), "parent");
         printArray(tested.getPriority(), "priority");
+        printMatrix(tested.buildAdm(), "nachher");
     }
     
     private void printArray(int[] array, String name) {
