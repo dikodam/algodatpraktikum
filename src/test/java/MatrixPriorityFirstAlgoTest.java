@@ -36,7 +36,6 @@ public class MatrixPriorityFirstAlgoTest {
         
         printArray(tested.getParent(), "parent");
         printArray(tested.getPriority(), "priority");
-        printMatrix(myAdm, "nachher");
     }
     
     private void printArray(int[] array, String name) {
@@ -58,7 +57,7 @@ public class MatrixPriorityFirstAlgoTest {
         System.out.println();
     }
     
-    @Test
+
     public void wirklichKleinsterWert() {
         MatrixPriorityFirstAlgo tested = new MatrixPriorityFirstAlgo(myAdm);
         int minimum = -(MatrixPriorityFirstAlgo.infinite + 1);
