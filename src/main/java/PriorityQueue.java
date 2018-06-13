@@ -1,9 +1,6 @@
 public class PriorityQueue {
-    
-    
-    
-    public PriorityQueue(int size) {
-    
-    }
 
+    public PriorityQueue(int size) {
+
+    }
 }

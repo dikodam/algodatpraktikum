@@ -1,22 +1,47 @@
-import java.util.ArrayList;
-import java.util.List;
 
 public class Node {
-    private final int id;
-    
-    private final List<Edge> edges;
-    
-    public Node(int id) {
-        this.id = id;
-        edges = new ArrayList<>();
+    private final int v;
+    private final int w; //weigth
+    private Node next;
+
+
+    public Node(int v, int w, Node next) {
+        this.v = v;
+        this.w = w;
+        this.next = next;
     }
-    
-    public int getId() {
-        return id;
+
+    public Node(int v, int w) {
+        this.v = v;
+        this.w = w;
+        this.next = null;
     }
-    
-    public List<Edge> getEdges() {
-        return edges;
+
+    public Node(int v) {
+        this.v = v;
+        this.w = 1;
+        this.next = null;
     }
-    
+
+    public int getV() {
+        return v;
+    }
+
+    public int getW() {
+        return w;
+    }
+
+    public Node getNext() {
+        return next;
+    }
+
+    public void setNext(Node next) {
+        this.next = next;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(v);
+    }
+
 }
