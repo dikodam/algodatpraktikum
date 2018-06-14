@@ -1,3 +1,5 @@
+package old;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -12,12 +14,12 @@ public class PriorityQueueOld {
     }
     
     /**
-     * Fügt das Element mit der Priorität in die PriorityQueueOld ein.
-     * Befindet sich das Element in der PriorityQueueOld und besitzt
+     * Fügt das Element mit der Priorität in die old.PriorityQueueOld ein.
+     * Befindet sich das Element in der old.PriorityQueueOld und besitzt
      * das Element höhere Priorität als die gegebene, dann wird die
      * Priorität erniedrigt
      *
-     * @param element  Das Element, das in die PriorityQueueOld eingefügt
+     * @param element  Das Element, das in die old.PriorityQueueOld eingefügt
      *                 werden soll bzw. dessen Priorität aktualisiert
      *                 werden soll
      * @param priority Die (neue) Priorität
@@ -37,7 +39,7 @@ public class PriorityQueueOld {
     
     /**
      * @return liefert das Element mit der geringsten Priorität
-     * und entfernt dieses aus der PriorityQueueOld
+     * und entfernt dieses aus der old.PriorityQueueOld
      */
     public Node remove() {
         Map.Entry<Node, Integer> first = Collections.min(queue.entrySet(), Comparator.comparing(Map.Entry::getValue));
@@ -46,7 +48,7 @@ public class PriorityQueueOld {
     }
     
     /**
-     * @return gibt an, ob die PriorityQueueOld leer ist (=keine Elemente enthält)
+     * @return gibt an, ob die old.PriorityQueueOld leer ist (=keine Elemente enthält)
      */
     public boolean isEmpty() {
         return queue.isEmpty();

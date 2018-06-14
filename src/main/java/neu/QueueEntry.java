@@ -1,3 +1,5 @@
+package neu;
+
 public class QueueEntry {
 
     public int elem;

@@ -1,3 +1,5 @@
+package neu;
+
 public class ListPriorityFirstAlgo {
 
     private QueueEntry[] prioQu;

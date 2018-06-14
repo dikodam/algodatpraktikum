@@ -1,3 +1,5 @@
+package neu;
+
 public class MatrixPriorityFirstAlgo {
 
     public static final int infinite = Integer.MAX_VALUE - 1;

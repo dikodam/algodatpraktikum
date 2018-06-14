@@ -1,3 +1,5 @@
+package old;
+
 public class Edge {
     
     private final Node start;
