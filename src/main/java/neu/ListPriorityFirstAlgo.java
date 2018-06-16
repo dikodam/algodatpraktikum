@@ -4,7 +4,6 @@ public class ListPriorityFirstAlgo {
 
     private QueueEntry[] prioQu;
     private int[] pos;
-    private int[] a;
 
     private int[] priority;
     private int[] parent;
@@ -16,22 +15,23 @@ public class ListPriorityFirstAlgo {
     private int nrElem;
 
     //dafuq sin die ganzen felder und wie muss man die implementieren
+    // TODO Mode in Konstruktor auslagern, ist beim pqUpdate noch hardcoded
     public ListPriorityFirstAlgo(Node[] adl) {
         this.n = adl.length - 1;
         this.adl = adl;
         this.parent = new int[n + 1];
         this.priority = new int[n + 1];
-        this.prioQu = new QueueEntry[getAdlLength()];
-        this.pos = new int[getAdlLength()];
-        this.a = new int[getAdlLength()];
-        this.nrElem = 1;
+        this.prioQu = new QueueEntry[adl.length];
+        this.pos = new int[prioQu.length];
+        this.nrElem = 0;
 
-        for (int i = 0; i < prioQu.length; i++) {
+        for (int i = 1; i < adl.length; i++) {
             prioQu[i] = new QueueEntry();
+            pqUpdate(i, prio(ListPriorityFirstAlgo.DIJKSTRA, i, adl[i]));
         }
     }
 
-    //dafuq is this
+    //dafuq is this, kann das weg?
     private int getAdlLength() {
         int counter = 0;
         for (int i = 1; i < adl.length; i++) {
@@ -83,7 +83,7 @@ public class ListPriorityFirstAlgo {
         while (!pqEmpty());
     }
 
-    public int prio(String mode, int k, Node no) {
+    private int prio(String mode, int k, Node no) {
         if (PRIM.equals(mode)) {
             return no.getW();
         } else {
@@ -102,8 +102,10 @@ public class ListPriorityFirstAlgo {
         return ret;
     }
 
+
     private boolean pqEmpty() {
-        return prioQu.length == 0;
+        return nrElem == 0;
+//        return prioQu.length == 0;
     }
 
     private boolean pqUpdate(int k, int prio) {
@@ -121,80 +123,65 @@ public class ListPriorityFirstAlgo {
         return false;
     }
 
-    //evtl double nutzen?
-    public void upHeap(int r) {
-        updateAAndPos();
-        int i, j, x;
+    private void upHeap(int r) {
+        int i;
+        int j;
+        QueueEntry x;
 
         i = r;
         j = i / 2;
-        x = a[i];
-
-        while (j <= 1) {
-            if (x <= a[j]) {
+        x = prioQu[i];
+//        so stehts im Skript, aber nonsens?!
+//        while (j <= 1) {
+        while (j >= 1) {
+            if (x.prio <= prioQu[j].prio) {
                 break;
             }
-            a[i] = a[j];
+            //TODO swap oder nur zuweisung wie im skript?
+            swap(i, j);
+
             i = j;
             j = i / 2;
         }
-        a[i] = x;
-    }
-
-    //dafuq is this
-    private void updateAAndPos() {
-        for (int i = 0; i < prioQu.length; i++) {
-            a[i] = prioQu[i].prio;
-            pos[prioQu[i].elem] = i;
-        }
-
+        prioQu[i].prio = x.prio;
+//        prioQu[i] = x;
     }
 
     //oder downHeap(int[l...r]), aber was des?
-    public void downHeap(int l) {
-        int i, j, x, r;
+    private void downHeap(int l) {
+        int i, j, r;
+        QueueEntry x;
 
         i = l;
         j = 2 * i;
-        x = a[i];
-        r = a.length - 1;
+        x = prioQu[i];
+        r = prioQu.length - 1;
 
         while (j <= r) {
             if (j < r) {
-                if (a[j] > a[j + 1]) {
+                if (prioQu[j].prio > prioQu[j + 1].prio) {
                     j += 1;
                 }
             }
-            if (x <= a[j]) {
+            if (x.prio <= prioQu[j].prio) {
                 break;
             }
-            a[i] = a[j];
+            //TODO swap oder nur zuweisung wie im skript?
+            swap(i, j);
+
             i = j;
             j = 2 * i;
         }
-        a[i] = x;
+        prioQu[i].prio = x.prio;
+//        prioQu[i] = x;
     }
 
-    //Tools Klasse erstellen
-    public Node[] buildAdjacencylist() {
-        Node[] adjacencyList = new Node[adl.length];
-
-        for (int i = 1; i <= n; i++) {
-            int tempValue = parent[i];
-            if (tempValue != 0) {
-                if (adjacencyList[tempValue] == null) {
-                    adjacencyList[tempValue] = new Node(i);
-                } else {
-                    Node value = adjacencyList[tempValue];
-
-                    while (value.getNext() != null) {
-                        value = value.getNext();
-                    }
-                    value.setNext(new Node(i));
-                }
-            }
-        }
-        return adjacencyList;
+    private void swap(int i, int j) {
+        QueueEntry temp = prioQu[i];
+        prioQu[i] = prioQu[j];
+        prioQu[j] = temp;
+        pos[prioQu[i].elem] = i;
+        pos[prioQu[j].elem] = j;
     }
 
     public int[] getParent() {
@@ -203,5 +190,9 @@ public class ListPriorityFirstAlgo {
 
     public int[] getPriority() {
         return priority;
+    }
+
+    public int getN() {
+        return n;
     }
 }
