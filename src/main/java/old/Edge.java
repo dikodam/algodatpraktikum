@@ -1,5 +1,7 @@
 package old;
 
+import neu.Node;
+
 public class Edge {
     
     private final Node start;

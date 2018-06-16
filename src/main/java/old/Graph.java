@@ -1,5 +1,7 @@
 package old;
 
+import neu.Node;
+
 import java.util.List;
 
 public class Graph {

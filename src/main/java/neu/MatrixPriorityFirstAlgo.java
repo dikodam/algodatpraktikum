@@ -8,14 +8,6 @@ public class MatrixPriorityFirstAlgo {
 
     private int[][] adm;
 
-    public int[] getParent() {
-        return parent;
-    }
-
-    public int[] getPriority() {
-        return priority;
-    }
-
     private int[] parent;
     private int[] priority;
     private int n;
@@ -86,24 +78,13 @@ public class MatrixPriorityFirstAlgo {
         return newMatrix;
     }
 
-    public Node[] buildAdjacencylist() {
-        Node[] adjacencyList = new Node[adm.length];
-
-        for (int i = 1; i <= n; i++) {
-            int tempValue = parent[i];
-            if (tempValue != 0) {
-                if (adjacencyList[tempValue] == null) {
-                    adjacencyList[tempValue] = new Node(i);
-                } else {
-                    Node value = adjacencyList[tempValue];
-
-                    while (value.getNext() != null) {
-                        value = value.getNext();
-                    }
-                    value.setNext(new Node(i));
-                }
-            }
-        }
-        return adjacencyList;
+    public int[] getParent() {
+        return parent;
     }
+
+    public int[] getPriority() {
+        return priority;
+    }
+
+    public int getN() {return n;}
 }

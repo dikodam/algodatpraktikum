@@ -1,16 +1,16 @@
 import neu.ListPriorityFirstAlgo;
 import neu.Node;
+import neu.Tools;
 import org.junit.Test;
 
 public class ListPriorityFirstAlgoTest {
 
-    int[][] myAdm = {
-            {0, 0, 0, 0, 0},
-            {0, 0, 1, 0, 4},
-            {0, 1, 0, 1, 2},
-            {0, 0, 1, 0, 3},
-            {0, 4, 2, 3, 0}
-    };
+
+//  0, 1, 0, 4
+//  1, 0, 1, 2
+//  0, 1, 0, 3
+//  4, 2, 3, 0
+
 
     /*
      * 1 -> 2, 4
@@ -25,64 +25,37 @@ public class ListPriorityFirstAlgoTest {
     public Node[] prepareAdl() {
         Node[] adl = new Node[5];
 
-        Node no4 = new Node(4);
-        Node no24 = new Node(2, 4, no4);
+        Node no14 = new Node(4, 4);
+        Node no124 = new Node(2, 1, no14);
 
-        Node no34 = new Node(3, 1, no4);
-        Node no13 = new Node(1, 2, no34);
+        Node no24 = new Node(4, 2);
+        Node no234 = new Node(3, 1, no24);
+        Node no213 = new Node(1, 1, no234);
 
-        Node no3 = new Node(3);
-        Node no23 = new Node(2, 2, no3);
-        Node no12 = new Node(1, 4, no23);
+        Node no34 = new Node(4, 3);
+        Node no324 = new Node(2, 1, no34);
 
-        adl[1] = no24;
-        adl[2] = no13;
-        adl[3] = no24;
-        adl[4] = no12;
+        Node no43 = new Node(3, 3);
+        Node no423 = new Node(2, 2, no43);
+        Node no412 = new Node(1, 4, no423);
+
+        adl[1] = no124;
+        adl[2] = no213;
+        adl[3] = no324;
+        adl[4] = no412;
 
         return adl;
     }
 
-
     @Test
     public void testDasDing() {
-        printAdjacencyList(myAdl, "vorher");
+        Tools.printAdjacencyList(myAdl, "vorher");
         ListPriorityFirstAlgo tested = new ListPriorityFirstAlgo(myAdl);
         tested.listPriorityFirst(ListPriorityFirstAlgo.DIJKSTRA);
 
-        printArray(tested.getParent(), "parent");
-        printArray(tested.getPriority(), "priority");
-        printAdjacencyList(tested.buildAdjacencylist(), "nachher");
-    }
-
-    // tools klasse
-    private void printAdjacencyList(Node[] adjacencylist, String addition) {
-        System.out.println("Adjazenzliste " + addition + ": ");
-
-        for (int i = 1; i < adjacencylist.length; i++) {
-            if (adjacencylist[i] != null) {
-                Node value = adjacencylist[i];
-                System.out.print(i + " -> ");
-
-                while (value != null) {
-                    if (value.getNext() != null) {
-                        System.out.print(value + ", ");
-                    } else {
-                        System.out.print(value);
-                    }
-                    value = value.getNext();
-                }
-
-                System.out.println();
-            }
-        }
-    }
-
-    private void printArray(int[] array, String name) {
-        System.out.print("Array " + name + ":[");
-        for (int i = 1; i < array.length; i++) {
-            System.out.print(array[i] + " ");
-        }
-        System.out.println("]");
+        Tools.printArray(tested.getParent(), "parent");
+        Tools.printArray(tested.getPriority(), "priority");
+        Node[] adjacencylist = Tools.buildAdjacencylist(myAdl, tested.getN(), tested.getParent());
+        Tools.printAdjacencyList(adjacencylist, "nachher");
     }
 }
