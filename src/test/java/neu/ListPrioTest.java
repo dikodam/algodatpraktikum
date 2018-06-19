@@ -28,12 +28,14 @@ public class ListPrioTest {
     public Node[] prepareListeMit5Ungerichtet() {
         Node[] adl = new Node[6];
         
-        adl[1] = new Node(2, 1).withNext(new Node(4, 4));
-        adl[2] = new Node(1, 1).withNext(new Node(3, 1)
-                                             .withNext(new Node(4, 2).withNext(new Node(5, 2))));
-        adl[3] = new Node(2, 1).withNext(new Node(4, 3));
-        adl[4] = new Node(1, 4).withNext(new Node(2, 2).withNext(new Node(3, 3)));
-        adl[5] = new Node(2, 2).withNext(new Node(3, 5).withNext(new Node(4, 4)));
+        adl[1] = Node.neighborlist(new Node(2, 1), new Node(4, 4));
+        adl[2] = Node.neighborlist(new Node(1, 1), new Node(3, 1),
+                                   new Node(4, 2), new Node(5, 2));
+        adl[3] = Node.neighborlist(new Node(2, 1), new Node(4, 3));
+        adl[4] = Node.neighborlist(new Node(1, 4), new Node(2, 2),
+                                   new Node(3, 3));
+        adl[5] = Node.neighborlist(new Node(2, 2), new Node(3, 5),
+                                   new Node(4, 4));
         Tools.printAdjacencyList(adl, "VORHER UNGERICHTET");
         return adl;
     }
@@ -41,10 +43,12 @@ public class ListPrioTest {
     public Node[] prepareListeMit4Ungerichtet() {
         Node[] adl = new Node[5];
         
-        adl[1] = new Node(2, 1).withNext(new Node(4, 4));
-        adl[2] = new Node(1, 1).withNext(new Node(3, 1).withNext(new Node(4, 2)));
-        adl[3] = new Node(2, 1).withNext(new Node(4, 3));
-        adl[4] = new Node(1, 4).withNext(new Node(2, 2).withNext(new Node(3, 3)));
+        adl[1] = Node.neighborlist(new Node(2, 1), new Node(4, 4));
+        adl[2] = Node.neighborlist(new Node(1, 1), new Node(3, 1),
+                                   new Node(4, 2));
+        adl[3] = Node.neighborlist(new Node(2, 1), new Node(4, 3));
+        adl[4] = Node.neighborlist(new Node(1, 4), new Node(2, 2),
+                                   new Node(3, 3));
         Tools.printAdjacencyList(adl, "VORHER UNGERICHTET");
         return adl;
     }
@@ -58,8 +62,8 @@ public class ListPrioTest {
     public Node[] prepareListeMit4Gerichtet() {
         Node[] adl = new Node[5];
         
-        adl[1] = new Node(2, 1).withNext(new Node(4, 4));
-        adl[2] = new Node(3, 1).withNext(new Node(4, 2));
+        adl[1] = Node.neighborlist(new Node(2, 1), new Node(4, 4));
+        adl[2] = Node.neighborlist(new Node(3, 1), new Node(4, 2));
         adl[3] = new Node(4, 3);
         adl[4] = new Node(1, 4);
         
@@ -75,21 +79,49 @@ public class ListPrioTest {
      */
     public Node[] alternativer5Graph() {
         Node[] adl = new Node[6];
-        adl[1] = new Node(2, 4)
-            .withNext(new Node(4, 1));
-        adl[2] = new Node(3, 1)
-            .withNext(new Node(4, 2)
-                          .withNext(new Node(5, 2)));
-        adl[3] = new Node(2, 1)
-            .withNext(new Node(4, 3)
-                          .withNext(new Node(5, 5)));
-        adl[4] = new Node(1, 1)
-            .withNext(new Node(2, 2)
-                          .withNext(new Node(3, 3)
-                                        .withNext(new Node(5, 4))));
-        adl[5] = new Node(2, 2)
-            .withNext(new Node(3, 5)
-                          .withNext(new Node(4, 4)));
+        
+        adl[1] = Node.neighborlist(new Node(2, 4), new Node(4, 1));
+        
+        adl[2] = Node.neighborlist(new Node(3, 1), new Node(4, 2),
+                                   new Node(5, 2));
+        
+        adl[3] = Node.neighborlist(new Node(2, 1), new Node(4, 3),
+                                   new Node(5, 5));
+        
+        adl[4] = Node.neighborlist(new Node(1, 1), new Node(2, 2),
+                                   new Node(3, 3), new Node(5, 4));
+        
+        adl[5] = Node.neighborlist(new Node(2, 2), new Node(3, 5),
+                                   new Node(4, 4));
+        
+        return adl;
+    }
+    
+    /**
+     * 1: 2(4), 4(1), 6(5)
+     * 2: 3(1), 4(2), 5(2)
+     * 3: 2(1), 4(3), 5(5)
+     * 4: 1(1), 2(2), 3(3), 5(4)
+     * 5: 2(2), 3(5), 4(4)
+     * 6: 1(5)
+     */
+    public Node[] graphMit6() {
+        Node[] adl = new Node[7];
+        adl[1] = Node.neighborlist(new Node(2, 4), new Node(4, 1),
+                                   new Node(6, 5));
+        
+        adl[2] = Node.neighborlist(new Node(3, 1), new Node(4, 2),
+                                   new Node(5, 2));
+        
+        adl[3] = Node.neighborlist(new Node(2, 1), new Node(4, 3),
+                                   new Node(5, 5));
+        
+        adl[4] = Node.neighborlist(new Node(1, 1), new Node(2, 2),
+                                   new Node(3, 3), new Node(5, 4));
+        
+        adl[5] = Node.neighborlist(new Node(2, 2), new Node(3, 5),
+                                   new Node(4, 4));
+        adl[6] = new Node(1, 5);
         return adl;
     }
     
@@ -97,7 +129,8 @@ public class ListPrioTest {
     
     @Test
     public void listPriorityFirst() {
-        
+
+//        myAdl = graphMit6();
 //        myAdl = alternativer5Graph();
         myAdl = prepareListeMit4Ungerichtet();
         

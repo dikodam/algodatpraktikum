@@ -61,4 +61,14 @@ public class Node {
         return nodes;
     }
      */
+    
+    public static Node neighborlist(Node... nodes) {
+        Node first = nodes[0];
+        Node current = first;
+        for (int i = 1; i < nodes.length; i++) {
+            current.setNext(nodes[i]);
+            current = current.getNext();
+        }
+        return first;
+    }
 }

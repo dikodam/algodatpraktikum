@@ -148,13 +148,13 @@ public class PriorityQueue {
     
     public void downHeap(int index) {
         int parent = index;
-        int child = 2 * parent;                              // child ist linkes kind
-        while (child <= nrElem) {                           // wenn kind existiert,
-            if (existiertKleinererRechterNachbar(child)) {    // prüfe ob ein kleineres rechtes kind existiert
-                child += 1;                                 // und wenn ja, ist child jetzt rechtes kind
+        int child = 2 * parent;                                 // child ist linkes kind
+        while (child <= nrElem) {                               // wenn kind existiert,
+            if (existiertKleinererRechterNachbar(child)) {      // prüfe ob ein kleineres rechtes kind existiert
+                child += 1;                                     // und wenn ja, ist child jetzt rechtes kind
             }
-            if (heapBedingungVerletzt(child, parent)) {     // wenn Heapbedingung verletzt
-                swap(child, parent);                        // Vater und Kind tauschen
+            if (heapBedingungVerletzt(child, parent)) {         // wenn Heapbedingung verletzt
+                swap(child, parent);                            // Vater und Kind tauschen
                 parent = child;
                 child = 2 * parent;
             } else {
@@ -173,7 +173,7 @@ public class PriorityQueue {
      * tauscht die Inhalte der PQ an den gegebenen Indizen und passt die pos-Pointer an
      */
     private void swap(int childIndex, int parentIndex) {
-        // Inhalt von child temp speichern
+        // Inhalt von child temporär speichern
         int formerChildPrio = prioQu[childIndex].prio;
         int formerChildValue = prioQu[childIndex].value;
         
@@ -187,7 +187,7 @@ public class PriorityQueue {
         
         // Pointer korrigieren
         pos[formerChildValue] = parentIndex;
-        pos[childIndex] = childIndex;
+        pos[prioQu[childIndex].value] = childIndex;
     }
     
     public QueueEntry[] getPrioQu() {

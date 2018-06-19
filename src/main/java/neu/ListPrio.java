@@ -42,12 +42,14 @@ public class ListPrio {
         }
         do {
             elem = prioQu.remove();
-            Tools.printPQ("REMOVE:", prioQu, parent, priority);
+            Tools.printPQ("REMOVED: " + elem, prioQu, parent, priority);
             priority[elem] = -priority[elem];   // -infinite wird positiv
+            Tools.printPQ("prio-update for: " + elem, prioQu, parent, priority);
             if (priority[elem] == infinite) {
                 priority[elem] = 0;
             }
             Node node = adl[elem];
+            System.out.println("while-Schleife--------------");
             while (node != null) {
                 if (nodeNotVisitedYet(node.value)) {
                     if (prioQu.update(node.value, prio(elem, node))) {
@@ -57,7 +59,7 @@ public class ListPrio {
                                       priority);
                         priority[node.value] = -prio(elem, node);
                         parent[node.value] = elem;
-                        Tools.printPQ("updated priority and parent for " + node.value,
+                        Tools.printPQ("updated priority and parent for " + node.value + " as follows:",
                                       prioQu,
                                       parent,
                                       priority);
@@ -65,6 +67,7 @@ public class ListPrio {
                 }
                 node = node.next;
             }
+            System.out.println("while Schleife ENDE");
         } while (!prioQu.isEmpty());
     }
     
