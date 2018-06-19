@@ -60,10 +60,12 @@ public class PriorityQueue {
     }
     
     /**
-     * Extrahiert das Element mit der niedrigsten = wichtigsten Priorität aus der PQ.
+     * <p>
+     * Die Wurzel wird zwischengespeichert, das letzte Element wird auf die Wurzel vorgezogen, die damit verletzte Heapbedingung wird wiederhergestellt.
+     * @return Extrahiert das Element mit der niedrigsten = wichtigsten Priorität aus der PQ.
      */
     public int remove() {
-        int root = prioQu[1].elem;              // Wurzel speichern
+        int root = prioQu[1].elem;              // Wurzel zwischenspeichern
         pos[root] = 0;                          // root ist nicht mehr im Heap
         QueueEntry ehemalsLetztes = prioQu[nrElem];
         prioQu[1] = ehemalsLetztes;             // Wurzel mit letzem Queue-Eintrag überschreiben
