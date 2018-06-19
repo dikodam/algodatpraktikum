@@ -42,6 +42,11 @@ public class Node {
         this.next = next;
     }
     
+    public Node withNext(Node next) {
+        this.next = next;
+        return this;
+    }
+    
     @Override
     public String toString() {
         return String.valueOf(v);
