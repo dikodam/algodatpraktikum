@@ -102,7 +102,6 @@ public class PriorityQueue {
         pos[ehemalsLetztes.elem] = 1;
         // PQ schrumpft
         nrElem--;
-        // TODO gilt damit jetzt wohl das letzte Element als nicht drin, obwohl != null?
         // Verletzung der Heapbedingung ab der Wurzel abwärts heilen
         downHeap(1);
         return root;
@@ -140,7 +139,27 @@ public class PriorityQueue {
     }
     
     public void downHeap(int index) {
+        int parent = index;
+        int child = 2 * parent;                              // child ist linkes kind
+        
+        while (child <= nrElem) {                           // wenn kind existiert,
+            if (existiertKleinerRechterNachbar(child)) {    // prüfe ob ein kleineres rechtes kind existiert
+                child += 1;                                 // und wenn ja, ist child jetzt rechtes kind
+            }
+            if (heapBedingungVerletzt(child, parent)) {     // wenn Heapbedingung verletzt
+                swap(child, parent);                        // Vater und Kind tauschen
+                parent = child;
+                child = 2 * parent;
+            } else {
+                break;
+            }
+        }
+        // Wenn kein Kind mehrexistiert oder die Heapordnung beim aktuellen Paar erfüllt ist,
+        // ist die Heapbedingung wiederhergestellt
+    }
     
+    private boolean existiertKleinerRechterNachbar(int child) {
+        return (child + 1 <= nrElem) && (prioQu[child + 1].prio < prioQu[child].prio);
     }
     
     /**
@@ -165,9 +184,6 @@ public class PriorityQueue {
     }
     
 }
-
-
-
 
 
 
