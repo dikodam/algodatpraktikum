@@ -21,12 +21,13 @@ public class PriorityQueue {
      */
     public PriorityQueue(int n) {
         prioQu = new QueueEntry[n + 1];
-        // um NullPpointerExceptions zu verhindern, muss die PQ mit "leeren" QueueEntry-Containern initialisiert werden
+        // um NullPpointerExceptions zu verhindern,
+        // muss die PQ mit "leeren" QueueEntry-Containern initialisiert werden
         for (int i = 0; i < prioQu.length; i++) {
             prioQu[i] = new QueueEntry(0, 0);
         }
-        
-        pos = new int[n + 1];               // Arrays vom primitiven Datentyp int sind automatisch mit 0 initialisiert
+        // Arrays vom primitiven Datentyp int sind automatisch mit 0 initialisiert
+        pos = new int[n + 1];
         nrElem = 0;
     }
     
@@ -125,7 +126,6 @@ public class PriorityQueue {
         // bis zur Wurzel iterieren ODER
         // terminieren, wenn Heapbedingung zwischen dem Knoten und seinem Vater stimmt erfüllt ist
         while (parent > 0 && heapBedingungVerletzt(child, parent)) {
-            
             // Heapbedingung verletzt, tausche Vater und Kind
             swap(child, parent);
             // Indizes um eine Ebene nach oben verschieben
@@ -141,9 +141,8 @@ public class PriorityQueue {
     public void downHeap(int index) {
         int parent = index;
         int child = 2 * parent;                              // child ist linkes kind
-        
         while (child <= nrElem) {                           // wenn kind existiert,
-            if (existiertKleinerRechterNachbar(child)) {    // prüfe ob ein kleineres rechtes kind existiert
+            if (existiertKleinererRechterNachbar(child)) {    // prüfe ob ein kleineres rechtes kind existiert
                 child += 1;                                 // und wenn ja, ist child jetzt rechtes kind
             }
             if (heapBedingungVerletzt(child, parent)) {     // wenn Heapbedingung verletzt
@@ -154,11 +153,11 @@ public class PriorityQueue {
                 break;
             }
         }
-        // Wenn kein Kind mehrexistiert oder die Heapordnung beim aktuellen Paar erfüllt ist,
+        // Wenn kein Kind mehr existiert oder die Heapordnung beim aktuellen Paar erfüllt ist,
         // ist die Heapbedingung wiederhergestellt
     }
     
-    private boolean existiertKleinerRechterNachbar(int child) {
+    private boolean existiertKleinererRechterNachbar(int child) {
         return (child + 1 <= nrElem) && (prioQu[child + 1].prio < prioQu[child].prio);
     }
     
