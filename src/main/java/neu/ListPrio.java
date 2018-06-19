@@ -16,7 +16,7 @@ public class ListPrio {
     
     public ListPrio(Node[] adl) {
         this.adl = adl;
-        this.n = Tools.countDistinctNodes(adl);
+        this.n = adl.length - 1;
         this.parent = new int[n + 1];
         this.priority = new int[n + 1];
         this.prioQu = new PriorityQueue(n);
@@ -49,7 +49,7 @@ public class ListPrio {
             }
             Node node = adl[elem];
             while (node != null) {
-                if (nodeNotVisitedYet(node.value)) { // positive priority heißt knoten ist schon in neuem Graph
+                if (nodeNotVisitedYet(node.value)) {
                     if (prioQu.update(node.value, prio(elem, node))) {
                         Tools.printPQ(String.format("UPDATE: (%d|%d)", node.value, prio(elem, node)),
                                       prioQu,
@@ -70,9 +70,9 @@ public class ListPrio {
     
     private int prio(int k, Node node) {
         if (PRIM.equals(mode)) {
-            return node.getWeight();
+            return node.weight;
         } else {
-            return priority[k] + node.getWeight();
+            return priority[k] + node.weight;
         }
     }
     

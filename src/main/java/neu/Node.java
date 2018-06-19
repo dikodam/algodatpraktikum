@@ -1,8 +1,5 @@
 package neu;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Node {
     final int value;
     final int weight; //weigth
@@ -52,13 +49,16 @@ public class Node {
         return String.valueOf(value);
     }
     
+    /*
     public List<Node> toList() {
         List<Node> nodes = new ArrayList<>();
         nodes.add(this);
-        while (next != null) {
+        Node tempNext = next;
+        while (tempNext != null) {
             nodes.add(next);
-            next = next.next;
+            tempNext = tempNext.next;
         }
         return nodes;
     }
+     */
 }

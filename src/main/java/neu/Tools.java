@@ -1,8 +1,5 @@
 package neu;
 
-import java.util.Arrays;
-import java.util.Objects;
-
 public class Tools {
     
     public static <T> Node[] buildAdjacencylist(T[] adl, int n, int[] parent) {
@@ -59,14 +56,6 @@ public class Tools {
         System.out.println();
     }
     
-    public static int countDistinctNodes(Node[] adl) {
-        return (int) Arrays.stream(adl)
-                           .filter(Objects::nonNull)
-                           .flatMap(node -> node.toList().stream())
-                           .mapToInt(Node::getValue)
-                           .distinct()
-                           .count();
-    }
     
     public static void printArray(int[] array, String name) {
         System.out.print("Array " + name + ":[");

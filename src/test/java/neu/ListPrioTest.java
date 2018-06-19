@@ -66,13 +66,40 @@ public class ListPrioTest {
         return adl;
     }
     
+    /**
+     * 1: 2(4), 4(1)
+     * 2: 3(1), 4(2), 5(2)
+     * 3: 2(1), 4(3), 5(5)
+     * 4: 1(1), 2(2), 3(3), 5(4)
+     * 5: 2(2), 3(5), 4(4)
+     */
+    public Node[] alternativer5Graph() {
+        Node[] adl = new Node[6];
+        adl[1] = new Node(2, 4)
+            .withNext(new Node(4, 1));
+        adl[2] = new Node(3, 1)
+            .withNext(new Node(4, 2)
+                          .withNext(new Node(5, 2)));
+        adl[3] = new Node(2, 1)
+            .withNext(new Node(4, 3)
+                          .withNext(new Node(5, 5)));
+        adl[4] = new Node(1, 1)
+            .withNext(new Node(2, 2)
+                          .withNext(new Node(3, 3)
+                                        .withNext(new Node(5, 4))));
+        adl[5] = new Node(2, 2)
+            .withNext(new Node(3, 5)
+                          .withNext(new Node(4, 4)));
+        return adl;
+    }
+    
     Node[] myAdl;
     
     @Test
     public void listPriorityFirst() {
         
-        myAdl = prepareListeMit5Ungerichtet();
-//        myAdl = prepareListeMit4Ungerichtet();
+//        myAdl = alternativer5Graph();
+        myAdl = prepareListeMit4Ungerichtet();
         
         // Tools.printAdjacencyList(myAdl, "vorher");
         ListPrio tested = new ListPrio(myAdl);
