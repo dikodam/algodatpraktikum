@@ -12,7 +12,8 @@ public class PriorityQueue {
     // pos[e] gibt den index von Element e im Array prioQu, oder 0, wenn das Element nicht in der PQ ist
     private int[] pos;
     
-    // Speichert die aktuelle Anzahl der Elemente in der PQ und ist gleichzeitig der Pointer auf das letzte gültige Item in der PQ (falls != 0)
+    // Speichert die aktuelle Anzahl der Elemente in der PQ
+    // und ist gleichzeitig der Pointer auf das letzte gültige Item in der PQ (falls != 0)
     private int nrElem;
     
     /**
@@ -111,12 +112,82 @@ public class PriorityQueue {
         return nrElem == 0;
     }
     
-    public void upHeap(int index) {
-        // TODO
+    /**
+     * Es wird angenommen, dass der Baum unterhalb des Index-Parameters ein Heap ist, der Pfad vom Index aufwärts
+     * jedoch die Heapordnung verletzt.
+     * <p> Das jeweilige Kind-Vater Knotenpaar wird getauscht,
+     * entlang des Pfades nach oben so lange bis die Heapordnung wieder hergestellt ist (also spätestens an der Wurzel)
+     *
+     * @param indexDerHeapverletzung Index, von dem angenommen wird, dass er und sein Vater die Heapbedingung verletzen
+     */
+    public void upHeap(int indexDerHeapverletzung) {
+        int child = indexDerHeapverletzung;
+        int parent = child / 2;           // ganzzahlige Division mit Abrunden
+        // bis zur Wurzel iterieren ODER
+        // terminieren, wenn Heapbedingung zwischen dem Knoten und seinem Vater stimmt erfüllt ist
+        while (parent > 0 && heapBedingungVerletzt(child, parent)) {
+            
+            // Heapbedingung verletzt, tausche Vater und Kind
+            swap(child, parent);
+            // Indizes um eine Ebene nach oben verschieben
+            child = parent;
+            parent = parent / 2;           // ganzzahlige Division mit Abrunden
+        }
+    }
+    
+    private boolean heapBedingungVerletzt(int childIndex, int parentIndex) {
+        return prioQu[childIndex].prio < prioQu[parentIndex].prio;
     }
     
     public void downHeap(int index) {
         // TODO
     }
     
+    /**
+     * tauscht die Inhalte der PQ an den gegebenen Indizen und passt die pos-Pointer an
+     */
+    private void swap(int childIndex, int parentIndex) {
+        // Inhalt von child temp speichern
+        int tempPrio = prioQu[childIndex].prio;
+        int tempValue = prioQu[childIndex].elem;
+        
+        // child = parent
+        int childPrio = prioQu[parentIndex].prio;
+        int childValue = prioQu[parentIndex].elem;
+        
+        // parent = child
+        prioQu[parentIndex].prio = tempPrio;
+        prioQu[parentIndex].elem = tempValue;
+        
+        // Pointer tauschen
+        pos[childIndex] = parentIndex;
+        pos[parentIndex] = childIndex;
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
