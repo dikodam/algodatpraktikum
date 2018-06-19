@@ -12,7 +12,7 @@ public class PriorityQueue {
     // pos[e] gibt den index von Element e im Array prioQu, oder 0, wenn das Element nicht in der PQ ist
     private int[] pos;
     
-    // Speichert die aktuelle Anzahl der Elemente in der PQ
+    // Speichert die aktuelle Anzahl der Elemente in der PQ und ist gleichzeitig der Pointer auf das letzte gültige Item in der PQ (falls != 0)
     private int nrElem;
     
     /**
@@ -20,7 +20,12 @@ public class PriorityQueue {
      */
     public PriorityQueue(int n) {
         prioQu = new QueueEntry[n + 1];
-        pos = new int[n + 1];
+        // um NullPpointerExceptions zu verhindern, muss die PQ mit "leeren" QueueEntry-Containern initialisiert werden
+        for (int i = 0; i < prioQu.length; i++) {
+            prioQu[i] = new QueueEntry(0, 0);
+        }
+        
+        pos = new int[n + 1];               // Arrays vom primitiven Datentyp int sind automatisch mit 0 initialisiert
         nrElem = 0;
     }
     
@@ -38,11 +43,11 @@ public class PriorityQueue {
      * <p>
      * Fall 2:
      * <p>
-     * Element ist in PQ vorhanden, neue Priorität ist besser
+     * Element ist in PQ vorhanden, neue Priorität ist besser = kleiner
      * <p>
-     *
+     * Ändert die Priorität des Elements. Die neue Priorität ist kleiner und verletzt damit eventuell die Heapbedingung zur Wurzel hin  -> Heilung mit upHeap()
      * <p>
-     * Ergebnis: Die PRiorität des Elements wird aktualisiert
+     * Ergebnis: Die Priorität des Elements wird aktualisiert.
      * <p>
      * return: true
      * <p>
@@ -54,25 +59,51 @@ public class PriorityQueue {
      * <p>
      * return: false
      */
-    public boolean update(int element, int priority) {
-        // TODO
-        return true;
+    public boolean update(int element, int newPriority) {
+        // Fall 1: Element noch nicht in PQ: hinten einfügen, Heapbedingung mit upHeap(letzterIndex) bis wiederhergestellt
+        if (pos[element] == 0) {
+            // PQ-Größe wächst
+            nrElem++;
+            // nrElem ist letzter Index im Heap
+            // Element wird hinten (am Index nrElem) eingefügt
+            prioQu[nrElem].elem = element;
+            prioQu[nrElem].prio = newPriority;
+            // Heapbedingung unter Umständen ab dem neuen Element aufwärts verletzt, Heilung mit upHeap(indexNeuesElement)
+            upHeap(nrElem);
+            return true;
+        }
+        // Fall 2: Die neue Priorität ist niedriger = besser, Priorität wird aktualisiert
+        else if (newPriority < prioQu[pos[element]].prio) {
+            prioQu[pos[element]].prio = newPriority;
+            // Durch Änderung der Priorität evtl. Verletzung der Heapbedingung, Heilung mit upHeap(indexBestehendesElement)
+            upHeap(pos[element]);
+            return true;
+        }
+        // Fall 3: Das Element ist mit einer besseren Priorität in der PQ enthalten, PQ bleibt unverändert
+        return false;
     }
     
     /**
      * <p>
      * Die Wurzel wird zwischengespeichert, das letzte Element wird auf die Wurzel vorgezogen, die damit verletzte Heapbedingung wird wiederhergestellt.
+     *
      * @return Extrahiert das Element mit der niedrigsten = wichtigsten Priorität aus der PQ.
      */
     public int remove() {
-        int root = prioQu[1].elem;              // Wurzel zwischenspeichern
-        pos[root] = 0;                          // root ist nicht mehr im Heap
+        // Wurzel zwischenspeichern
+        int root = prioQu[1].elem;
+        // root logisch aus dem Heap löschen
+        pos[root] = 0;
         QueueEntry ehemalsLetztes = prioQu[nrElem];
-        prioQu[1] = ehemalsLetztes;             // Wurzel mit letzem Queue-Eintrag überschreiben
-        pos[ehemalsLetztes.elem] = 1;           // Pointer auf das ehemals letzte Element umbiegen, ist jetzt Wurzel
-        nrElem--;                               // PQ hat ein Element weniger, nämlich ihre ehemalige Wurzel
-                                                // TODO gilt damit jetzt wohl das letzte Element als nicht drin, obwohl != null?
-        downHeap(1);                      // Verletzung der Heapbedingung ab der Wurzel abwärts heilen
+        // Wurzel mit letzem Queue-Eintrag überschreiben
+        prioQu[1] = ehemalsLetztes;
+        // Positions-Pointer auf das ehemals letzte Element umbiegen, ist jetzt Wurzel
+        pos[ehemalsLetztes.elem] = 1;
+        // PQ schrumpft
+        nrElem--;
+        // TODO gilt damit jetzt wohl das letzte Element als nicht drin, obwohl != null?
+        // Verletzung der Heapbedingung ab der Wurzel abwärts heilen
+        downHeap(1);
         return root;
     }
     
