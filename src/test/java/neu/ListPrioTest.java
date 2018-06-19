@@ -2,44 +2,82 @@ package neu;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class ListPrioTest {
     
+    /*
+     * # 1 -(1)- 2
+     * # |     / |
+     * #(4) (2) (1)
+     * # | /     |
+     * # 4 -(3)- 3
+     */
+
+//    [0, 1, 0, 4, 0]
+//    [1, 0, 1, 2, 2]
+//    [0, 1, 0, 3, 5]
+//    [4, 2, 3, 0, 4]
+//    [0, 2, 5, 4, 0]
     
-    Node[] myAdl = prepareAdl();
+    /**
+     * 1 -> 2(1), 4(4)
+     * 2 -> 1(1), 3(1), 4(2), 5(2)
+     * 3 -> 2(1), 4(3), 5(5)
+     * 4 -> 1(4), 2(2), 3(3), 5(4)
+     * 5 -> 2(2), 3(5), 4(4)
+     */
+    public Node[] prepareListeMit5Ungerichtet() {
+        Node[] adl = new Node[6];
+        
+        adl[1] = new Node(2, 1).withNext(new Node(4, 4));
+        adl[2] = new Node(1, 1).withNext(new Node(3, 1)
+                                             .withNext(new Node(4, 2).withNext(new Node(5, 2))));
+        adl[3] = new Node(2, 1).withNext(new Node(4, 3));
+        adl[4] = new Node(1, 4).withNext(new Node(2, 2).withNext(new Node(3, 3)));
+        adl[5] = new Node(2, 2).withNext(new Node(3, 5).withNext(new Node(4, 4)));
+        Tools.printAdjacencyList(adl, "VORHER UNGERICHTET");
+        return adl;
+    }
     
-    public Node[] prepareAdl() {
+    public Node[] prepareListeMit4Ungerichtet() {
         Node[] adl = new Node[5];
         
-        Node no14 = new Node(4, 4);
-        Node no124 = new Node(2, 1, no14);
+        adl[1] = new Node(2, 1).withNext(new Node(4, 4));
+        adl[2] = new Node(1, 1).withNext(new Node(3, 1).withNext(new Node(4, 2)));
+        adl[3] = new Node(2, 1).withNext(new Node(4, 3));
+        adl[4] = new Node(1, 4).withNext(new Node(2, 2).withNext(new Node(3, 3)));
+        Tools.printAdjacencyList(adl, "VORHER UNGERICHTET");
+        return adl;
+    }
+    
+    /**
+     * 1 -> 2(1), 4(4)
+     * 2 -> 3(1), 4(2)
+     * 3 -> 4(3)
+     * 4 ->
+     */
+    public Node[] prepareListeMit4Gerichtet() {
+        Node[] adl = new Node[5];
         
-        Node no24 = new Node(4, 2);
-        Node no234 = new Node(3, 1, no24);
-        Node no213 = new Node(1, 1, no234);
-        
-        Node no34 = new Node(4, 3);
-        Node no324 = new Node(2, 1, no34);
-        
-        Node no43 = new Node(3, 3);
-        Node no423 = new Node(2, 2, no43);
-        Node no412 = new Node(1, 4, no423);
-        
-        adl[1] = no124;
-        adl[2] = no213;
-        adl[3] = no324;
-        adl[4] = no412;
+        adl[1] = new Node(2, 1).withNext(new Node(4, 4));
+        adl[2] = new Node(3, 1).withNext(new Node(4, 2));
+        adl[3] = new Node(4, 3);
+        adl[4] = new Node(1, 4);
         
         return adl;
     }
     
+    Node[] myAdl;
+    
     @Test
     public void listPriorityFirst() {
-        Tools.printAdjacencyList(myAdl, "vorher");
+        
+//        myAdl = prepareListeMit5Ungerichtet();
+        myAdl = prepareListeMit4Ungerichtet();
+        
+        // Tools.printAdjacencyList(myAdl, "vorher");
         ListPrio tested = new ListPrio(myAdl);
-        tested.listPriorityFirst(ListPriorityFirstAlgo.DIJKSTRA);
-    
+        tested.listPriorityFirst(ListPriorityFirstAlgo.PRIM);
+        
         Tools.printArray(tested.getParent(), "parent");
         Tools.printArray(tested.getPriority(), "priority");
         Node[] adjacencylist = Tools.buildAdjacencylist(myAdl, tested.getN(), tested.getParent());

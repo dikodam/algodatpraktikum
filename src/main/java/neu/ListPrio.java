@@ -26,9 +26,9 @@ public class ListPrio {
         for (int i = 1; i <= n; i++) {
             priority[i] = -infinite;
         }
-        for (int i = 1; i <= n; i++) {
-            if (priority[i] == -infinite) {
-                visit(i);
+        for (int key = 1; key <= n; key++) {
+            if (priority[key] == -infinite) {
+                visit(key);
             }
         }
     }

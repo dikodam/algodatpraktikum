@@ -7,12 +7,13 @@ package neu;
 public class PriorityQueue {
     
     // Die eigentliche Priority Queue
+    
     private QueueEntry[] prioQu;
-    
     // pos[e] gibt den index von Element e im Array prioQu, oder 0, wenn das Element nicht in der PQ ist
-    private int[] pos;
     
+    private int[] pos;
     // Speichert die aktuelle Anzahl der Elemente in der PQ
+    
     // und ist gleichzeitig der Pointer auf das letzte gültige Item in der PQ (falls != 0)
     private int nrElem;
     
@@ -70,6 +71,7 @@ public class PriorityQueue {
             // Element wird hinten (am Index nrElem) eingefügt
             prioQu[nrElem].elem = element;
             prioQu[nrElem].prio = newPriority;
+            pos[element] = nrElem;
             // Heapbedingung unter Umständen ab dem neuen Element aufwärts verletzt, Heilung mit upHeap(indexNeuesElement)
             upHeap(nrElem);
             return true;
@@ -166,22 +168,44 @@ public class PriorityQueue {
      */
     private void swap(int childIndex, int parentIndex) {
         // Inhalt von child temp speichern
-        int tempPrio = prioQu[childIndex].prio;
-        int tempValue = prioQu[childIndex].elem;
+        int formerChildPrio = prioQu[childIndex].prio;
+        int formerChildValue = prioQu[childIndex].elem;
         
         // child = parent
-        int childPrio = prioQu[parentIndex].prio;
-        int childValue = prioQu[parentIndex].elem;
+        prioQu[childIndex].prio = prioQu[parentIndex].prio;
+        prioQu[childIndex].elem = prioQu[parentIndex].elem;
         
         // parent = child
-        prioQu[parentIndex].prio = tempPrio;
-        prioQu[parentIndex].elem = tempValue;
+        prioQu[parentIndex].prio = formerChildPrio;
+        prioQu[parentIndex].elem = formerChildValue;
         
-        // Pointer tauschen
-        pos[childIndex] = parentIndex;
-        pos[parentIndex] = childIndex;
+        // Pointer korrigieren
+        pos[formerChildValue] = parentIndex;
+        pos[childIndex] = childIndex;
     }
     
+    public QueueEntry[] getPrioQu() {
+        return prioQu;
+    }
+    
+    public int[] getPos() {
+        return pos;
+    }
+    
+    public int getNrElem() {
+        return nrElem;
+    }
+    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (int i = 1; i < prioQu.length; i++) {
+            sb.append(prioQu[i]);
+        }
+        sb.append("]");
+        return sb.toString();
+    }
 }
 
 
