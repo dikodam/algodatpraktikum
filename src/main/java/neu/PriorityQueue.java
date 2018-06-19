@@ -140,7 +140,7 @@ public class PriorityQueue {
     }
     
     public void downHeap(int index) {
-        // TODO
+    
     }
     
     /**

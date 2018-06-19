@@ -1,8 +1,5 @@
 package neu;
 
-import java.util.function.IntPredicate;
-import java.util.stream.IntStream;
-
 public class Tools {
 
     public static <T> Node[] buildAdjacencylist(T[] adl, int n, int[] parent) {
@@ -66,18 +63,5 @@ public class Tools {
         }
         System.out.println();
     }
-
-    public static void wirklichKleinsterWert(int[][] myAdm) {
-        MatrixPriorityFirstAlgo tested = new MatrixPriorityFirstAlgo(myAdm);
-        int minimum = -(MatrixPriorityFirstAlgo.infinite + 1);
-        System.out.println("inf: \n" + MatrixPriorityFirstAlgo.infinite);
-        System.out.println("inf + 1: \n" + (MatrixPriorityFirstAlgo.infinite + 1));
-        System.out.println("minimum: \n" + minimum);
-        IntPredicate kleinerMinimum = i -> i < minimum;
-        IntStream.rangeClosed(Integer.MIN_VALUE + 1, Integer.MAX_VALUE)
-                .filter(kleinerMinimum)
-                .forEach(System.out::println);
-    }
-
 
 }
