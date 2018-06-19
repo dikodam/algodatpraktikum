@@ -55,10 +55,10 @@ public class ListPriorityFirstAlgo {
             }
             no = adl[k];
             while (no != null) {
-                if (priority[no.getV()] < 0) {
-                    if (pqUpdate(no.getV(), prio(mode, k, no))) {
-                        priority[no.getV()] = -prio(mode, k, no);
-                        parent[no.getV()] = k;
+                if (priority[no.getValue()] < 0) {
+                    if (pqUpdate(no.getValue(), prio(mode, k, no))) {
+                        priority[no.getValue()] = -prio(mode, k, no);
+                        parent[no.getValue()] = k;
                     }
                 }
                 no = no.getNext();
@@ -69,18 +69,18 @@ public class ListPriorityFirstAlgo {
 
     private int prio(String mode, int k, Node no) {
         if (PRIM.equals(mode)) {
-            return no.getW();
+            return no.getWeight();
         } else {
             //DIJKSTRA.equals(mode)
-            return priority[k] + no.getW();
+            return priority[k] + no.getWeight();
         }
     }
 
     private int pqRemove() {
-        int ret = prioQu[1].elem;
-        pos[prioQu[1].elem] = 0;
+        int ret = prioQu[1].value;
+        pos[prioQu[1].value] = 0;
         prioQu[1] = prioQu[nrElem];
-        pos[prioQu[nrElem].elem] = 1;
+        pos[prioQu[nrElem].value] = 1;
         nrElem -= 1;
         downHeap(1);
         return ret;
@@ -95,7 +95,7 @@ public class ListPriorityFirstAlgo {
     private boolean pqUpdate(int k, int prio) {
         if (pos[k] == 0) {
             nrElem += 1;
-            prioQu[nrElem].elem = k;
+            prioQu[nrElem].value = k;
             prioQu[nrElem].prio = prio;
             upHeap(nrElem);
             return true;
@@ -164,8 +164,8 @@ public class ListPriorityFirstAlgo {
         QueueEntry temp = prioQu[i];
         prioQu[i] = prioQu[j];
         prioQu[j] = temp;
-        pos[prioQu[i].elem] = i;
-        pos[prioQu[j].elem] = j;
+        pos[prioQu[i].value] = i;
+        pos[prioQu[j].value] = j;
     }
 
     public int[] getParent() {

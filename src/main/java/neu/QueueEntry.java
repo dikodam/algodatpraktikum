@@ -3,17 +3,17 @@ package neu;
 import java.util.Objects;
 
 /**
- * elem: Element value
+ * value: Element value
  * <p>
  * prio: Priorität des Elements
  */
 public class QueueEntry {
     
-    public int elem;
+    public int value;
     public int prio;
     
-    public QueueEntry(int elem, int prio) {
-        this.elem = elem;
+    public QueueEntry(int value, int prio) {
+        this.value = value;
         this.prio = prio;
     }
     
@@ -23,7 +23,7 @@ public class QueueEntry {
     
     @Override
     public int hashCode() {
-        return Objects.hash(elem, prio);
+        return Objects.hash(value, prio);
     }
     
     @Override
@@ -31,12 +31,12 @@ public class QueueEntry {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         QueueEntry that = (QueueEntry) o;
-        return elem == that.elem &&
+        return value == that.value &&
             prio == that.prio;
     }
     
     @Override
     public String toString() {
-        return String.format("(%d|%d)", elem, prio);
+        return String.format("(%d|%d)", value, prio);
     }
 }

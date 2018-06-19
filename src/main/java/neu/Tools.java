@@ -26,6 +26,16 @@ public class Tools {
         return adjacencyList;
     }
     
+    public static void printPQ(String message, PriorityQueue pq, int[] parent, int[] priority) {
+        System.out.println(message);
+        System.out.println("PQ    : " + pq.toString());
+        System.out.println("nrElem: " + pq.getNrElem());
+        printArray(pq.getPos(), "pos");
+        printArray(parent, "parent");
+        printArray(priority, "priority");
+        System.out.println();
+    }
+    
     public static void printAdjacencyList(Node[] adjacencylist, String addition) {
         System.out.println("Adjazenzliste " + addition + ": ");
         
@@ -46,13 +56,14 @@ public class Tools {
                 System.out.println();
             }
         }
+        System.out.println();
     }
     
     public static int countDistinctNodes(Node[] adl) {
         return (int) Arrays.stream(adl)
                            .filter(Objects::nonNull)
                            .flatMap(node -> node.toList().stream())
-                           .mapToInt(Node::getV)
+                           .mapToInt(Node::getValue)
                            .distinct()
                            .count();
     }

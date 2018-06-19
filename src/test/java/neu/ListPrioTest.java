@@ -71,8 +71,8 @@ public class ListPrioTest {
     @Test
     public void listPriorityFirst() {
         
-//        myAdl = prepareListeMit5Ungerichtet();
-        myAdl = prepareListeMit4Ungerichtet();
+        myAdl = prepareListeMit5Ungerichtet();
+//        myAdl = prepareListeMit4Ungerichtet();
         
         // Tools.printAdjacencyList(myAdl, "vorher");
         ListPrio tested = new ListPrio(myAdl);

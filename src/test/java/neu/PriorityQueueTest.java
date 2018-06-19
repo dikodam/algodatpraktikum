@@ -5,27 +5,25 @@ import org.junit.Test;
 
 public class PriorityQueueTest {
     
-    PriorityQueue tested;
+    PriorityQueue pq;
     
     @Before
     public void setup() {
-        tested = new PriorityQueue(10);
+        pq = new PriorityQueue(10);
     }
     
     @Test
     public void update() {
-        tested.update(2, 1);
-        tested.update(3, -1);
-        tested.update(1, 2);
-//        tested.update(1, 1);
-//        tested.update(2, 1);
-//        tested.update(4, 4);
-        assertPQ("", 1, "");
-    }
-    
-    private void assertPQ(String expectedStringRepresentation, int nrElements, String expectedPosArray) {
-        System.out.println("PQ: " + tested.toString());
-        System.out.println();
+        pq.update(2, 1);
+        Tools.printPQ("update: 2|1", pq, new int[0], new int[0]);
+        pq.update(2, -1);
+        Tools.printPQ("update: 2|-1", pq, new int[0], new int[0]);
+        pq.update(1, 2);
+        Tools.printPQ("update: 1|2", pq, new int[0], new int[0]);
+        pq.remove();
+        Tools.printPQ("removed", pq, new int[0], new int[0]);
+        pq.update(2, 5);
+        Tools.printPQ("update: 2|5", pq, new int[0], new int[0]);
     }
     
     @Test

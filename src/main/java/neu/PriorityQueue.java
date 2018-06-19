@@ -69,7 +69,7 @@ public class PriorityQueue {
             nrElem++;
             // nrElem ist letzter Index im Heap
             // Element wird hinten (am Index nrElem) eingefügt
-            prioQu[nrElem].elem = element;
+            prioQu[nrElem].value = element;
             prioQu[nrElem].prio = newPriority;
             pos[element] = nrElem;
             // Heapbedingung unter Umständen ab dem neuen Element aufwärts verletzt, Heilung mit upHeap(indexNeuesElement)
@@ -95,16 +95,22 @@ public class PriorityQueue {
      */
     public int remove() {
         // Wurzel zwischenspeichern
-        int root = prioQu[1].elem;
+        int root = prioQu[1].value;
         // root logisch aus dem Heap löschen
         pos[root] = 0;
         QueueEntry ehemalsLetztes = prioQu[nrElem];
         // Wurzel mit letzem Queue-Eintrag überschreiben
-        prioQu[1] = ehemalsLetztes;
+        prioQu[1].value = ehemalsLetztes.value;
+        prioQu[1].prio = ehemalsLetztes.prio;
         // Positions-Pointer auf das ehemals letzte Element umbiegen, ist jetzt Wurzel
-        pos[ehemalsLetztes.elem] = 1;
+        pos[ehemalsLetztes.value] = 1;
         // PQ schrumpft
         nrElem--;
+        if (isEmpty()) {
+            for (int i = 0; i < pos.length; i++) {
+                pos[i] = 0;
+            }
+        }
         // Verletzung der Heapbedingung ab der Wurzel abwärts heilen
         downHeap(1);
         return root;
@@ -169,15 +175,15 @@ public class PriorityQueue {
     private void swap(int childIndex, int parentIndex) {
         // Inhalt von child temp speichern
         int formerChildPrio = prioQu[childIndex].prio;
-        int formerChildValue = prioQu[childIndex].elem;
+        int formerChildValue = prioQu[childIndex].value;
         
         // child = parent
         prioQu[childIndex].prio = prioQu[parentIndex].prio;
-        prioQu[childIndex].elem = prioQu[parentIndex].elem;
+        prioQu[childIndex].value = prioQu[parentIndex].value;
         
         // parent = child
         prioQu[parentIndex].prio = formerChildPrio;
-        prioQu[parentIndex].elem = formerChildValue;
+        prioQu[parentIndex].value = formerChildValue;
         
         // Pointer korrigieren
         pos[formerChildValue] = parentIndex;

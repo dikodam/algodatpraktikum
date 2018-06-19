@@ -13,6 +13,7 @@ public class ListPrio {
     private Node[] adl;
     private PriorityQueue prioQu;
     private String mode;
+    
     public ListPrio(Node[] adl) {
         this.adl = adl;
         this.n = Tools.countDistinctNodes(adl);
@@ -28,41 +29,55 @@ public class ListPrio {
         }
         for (int key = 1; key <= n; key++) {
             if (priority[key] == -infinite) {
+                System.out.println("[VISIT]: " + key);
                 visit(key);
             }
         }
     }
     
-    private void visit(int k) {
-        Node node;
-        if (prioQu.update(k, infinite)) {
-            parent[k] = 0;
+    private void visit(int elem) {
+        if (prioQu.update(elem, infinite)) {
+            Tools.printPQ(String.format("UPDATE: (%d|%d)", elem, infinite), prioQu, parent, priority);
+            parent[elem] = 0;
         }
-        while (!prioQu.isEmpty()) {
-            k = prioQu.remove();
-            priority[k] = -priority[k];
-            if (priority[k] == infinite) {
-                priority[k] = 0;
+        do {
+            elem = prioQu.remove();
+            Tools.printPQ("REMOVE:", prioQu, parent, priority);
+            priority[elem] = -priority[elem];   // -infinite wird positiv
+            if (priority[elem] == infinite) {
+                priority[elem] = 0;
             }
-            node = adl[k];
+            Node node = adl[elem];
             while (node != null) {
-                if (priority[node.getV()] < 0) {
-                    if (prioQu.update(node.getV(), prio(k, node))) {
-                        priority[node.getV()] = -prio(k, node);
-                        parent[node.getV()] = k;
+                if (nodeNotVisitedYet(node.value)) { // positive priority heißt knoten ist schon in neuem Graph
+                    if (prioQu.update(node.value, prio(elem, node))) {
+                        Tools.printPQ(String.format("UPDATE: (%d|%d)", node.value, prio(elem, node)),
+                                      prioQu,
+                                      parent,
+                                      priority);
+                        priority[node.value] = -prio(elem, node);
+                        parent[node.value] = elem;
+                        Tools.printPQ("updated priority and parent for " + node.value,
+                                      prioQu,
+                                      parent,
+                                      priority);
                     }
                 }
-                node = node.getNext();
+                node = node.next;
             }
-        }
+        } while (!prioQu.isEmpty());
     }
     
     private int prio(int k, Node node) {
         if (PRIM.equals(mode)) {
-            return node.getW();
+            return node.getWeight();
         } else {
-            return priority[k] + node.getW();
+            return priority[k] + node.getWeight();
         }
+    }
+    
+    private boolean nodeNotVisitedYet(int nodeValue) {
+        return priority[nodeValue] < 0;
     }
     
     public int getN() {
