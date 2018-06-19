@@ -1,10 +1,13 @@
 package neu;
 
-public class Tools {
+import java.util.Arrays;
+import java.util.Objects;
 
+public class Tools {
+    
     public static <T> Node[] buildAdjacencylist(T[] adl, int n, int[] parent) {
         Node[] adjacencyList = new Node[adl.length];
-
+        
         for (int i = 1; i <= n; i++) {
             int tempValue = parent[i];
             if (tempValue != 0) {
@@ -12,7 +15,7 @@ public class Tools {
                     adjacencyList[tempValue] = new Node(i);
                 } else {
                     Node value = adjacencyList[tempValue];
-
+                    
                     while (value.getNext() != null) {
                         value = value.getNext();
                     }
@@ -22,15 +25,15 @@ public class Tools {
         }
         return adjacencyList;
     }
-
+    
     public static void printAdjacencyList(Node[] adjacencylist, String addition) {
         System.out.println("Adjazenzliste " + addition + ": ");
-
+        
         for (int i = 1; i < adjacencylist.length; i++) {
             if (adjacencylist[i] != null) {
                 Node value = adjacencylist[i];
                 System.out.print(i + " -> ");
-
+                
                 while (value != null) {
                     if (value.getNext() != null) {
                         System.out.print(value + ", ");
@@ -39,12 +42,21 @@ public class Tools {
                     }
                     value = value.getNext();
                 }
-
+                
                 System.out.println();
             }
         }
     }
-
+    
+    public static int countDistinctNodes(Node[] adl) {
+        return (int) Arrays.stream(adl)
+                           .filter(Objects::nonNull)
+                           .flatMap(node -> node.toList().stream())
+                           .mapToInt(Node::getV)
+                           .distinct()
+                           .count();
+    }
+    
     public static void printArray(int[] array, String name) {
         System.out.print("Array " + name + ":[");
         for (int i = 1; i < array.length; i++) {
@@ -52,7 +64,7 @@ public class Tools {
         }
         System.out.println("]");
     }
-
+    
     public static void printMatrix(int[][] myAdm, String addition) {
         System.out.println("Matrix " + addition + ":");
         for (int i = 1; i < myAdm.length; i++) {
@@ -63,5 +75,5 @@ public class Tools {
         }
         System.out.println();
     }
-
+    
 }

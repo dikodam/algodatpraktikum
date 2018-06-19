@@ -4,6 +4,7 @@ public class ListPriorityFirstAlgo {
 
     private QueueEntry[] prioQu;
     private int[] pos;
+    private int nrElem;
 
     private int[] priority;
     private int[] parent;
@@ -12,7 +13,6 @@ public class ListPriorityFirstAlgo {
     public static final int infinite = Integer.MAX_VALUE - 1;
     public static final String PRIM = "p";
     public static final String DIJKSTRA = "d";
-    private int nrElem;
 
     //dafuq sin die ganzen felder und wie muss man die implementieren
     // TODO Mode in Konstruktor auslagern, ist beim pqUpdate noch hardcoded
@@ -29,22 +29,6 @@ public class ListPriorityFirstAlgo {
             prioQu[i] = new QueueEntry();
             pqUpdate(i, prio(ListPriorityFirstAlgo.DIJKSTRA, i, adl[i]));
         }
-    }
-
-    //dafuq is this, kann das weg?
-    private int getAdlLength() {
-        int counter = 0;
-        for (int i = 1; i < adl.length; i++) {
-            if (adl[i] != null) {
-                Node value = adl[i];
-                counter++;
-                while (value != null) {
-                    value = value.getNext();
-                    counter++;
-                }
-            }
-        }
-        return counter;
     }
 
     public void listPriorityFirst(String mode) {
