@@ -7,12 +7,12 @@ public class ListPrio {
     public static final String DIJKSTRA = "d";
     
     private int n;
+    
     private int[] priority;
     private int[] parent;
     private Node[] adl;
     private PriorityQueue prioQu;
     private String mode;
-    
     public ListPrio(Node[] adl) {
         this.adl = adl;
         this.n = Tools.countDistinctNodes(adl);
@@ -63,5 +63,17 @@ public class ListPrio {
         } else {
             return priority[k] + node.getW();
         }
+    }
+    
+    public int getN() {
+        return n;
+    }
+    
+    public int[] getPriority() {
+        return priority;
+    }
+    
+    public int[] getParent() {
+        return parent;
     }
 }

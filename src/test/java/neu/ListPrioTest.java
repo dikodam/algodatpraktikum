@@ -1,22 +1,11 @@
-import neu.ListPriorityFirstAlgo;
-import neu.Node;
-import neu.Tools;
+package neu;
+
 import org.junit.Test;
 
-public class ListPriorityFirstAlgoTest {
+import static org.junit.Assert.*;
 
-//  0, 1, 0, 4
-//  1, 0, 1, 2
-//  0, 1, 0, 3
-//  4, 2, 3, 0
+public class ListPrioTest {
     
-    
-    /*
-     * 1 -> 2, 4
-     * 2 -> 1, 3, 4
-     * 3 -> 2, 4
-     * 4 -> 1, 2, 3
-     * */
     
     Node[] myAdl = prepareAdl();
     
@@ -46,11 +35,11 @@ public class ListPriorityFirstAlgoTest {
     }
     
     @Test
-    public void testDasDing() {
+    public void listPriorityFirst() {
         Tools.printAdjacencyList(myAdl, "vorher");
-        ListPriorityFirstAlgo tested = new ListPriorityFirstAlgo(myAdl);
+        ListPrio tested = new ListPrio(myAdl);
         tested.listPriorityFirst(ListPriorityFirstAlgo.DIJKSTRA);
-        
+    
         Tools.printArray(tested.getParent(), "parent");
         Tools.printArray(tested.getPriority(), "priority");
         Node[] adjacencylist = Tools.buildAdjacencylist(myAdl, tested.getN(), tested.getParent());
