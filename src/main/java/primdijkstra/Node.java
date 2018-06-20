@@ -2,7 +2,7 @@ package primdijkstra;
 
 public class Node {
     final int value;
-    final int weight; //weigth
+    final int weight;
     Node next;
     
     public Node(int value, int weight, Node next) {
@@ -23,6 +23,20 @@ public class Node {
         this.next = null;
     }
     
+    /**
+     * Buildermethode für Tests. Die mitgegebenen Nodes werden ineinander als verlinkte Liste verschachtelt
+     * Das erste Element ist der return-Wert
+     */
+    public static Node neighborlist(Node... nodes) {
+        Node first = nodes[0];
+        Node current = first;
+        for (int i = 1; i < nodes.length; i++) {
+            current.setNext(nodes[i]);
+            current = current.getNext();
+        }
+        return first;
+    }
+    
     public int getValue() {
         return value;
     }
@@ -39,36 +53,8 @@ public class Node {
         this.next = next;
     }
     
-    public Node withNext(Node next) {
-        this.next = next;
-        return this;
-    }
-    
     @Override
     public String toString() {
         return String.valueOf(value);
-    }
-    
-    /*
-    public List<Node> toList() {
-        List<Node> nodes = new ArrayList<>();
-        nodes.add(this);
-        Node tempNext = next;
-        while (tempNext != null) {
-            nodes.add(next);
-            tempNext = tempNext.next;
-        }
-        return nodes;
-    }
-     */
-    
-    public static Node neighborlist(Node... nodes) {
-        Node first = nodes[0];
-        Node current = first;
-        for (int i = 1; i < nodes.length; i++) {
-            current.setNext(nodes[i]);
-            current = current.getNext();
-        }
-        return first;
     }
 }
