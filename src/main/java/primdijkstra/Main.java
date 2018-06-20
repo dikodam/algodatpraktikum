@@ -1,4 +1,4 @@
-package neu;
+package primdijkstra;
 
 public class Main {
     public static void main(String[] args) {

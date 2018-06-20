@@ -1,4 +1,4 @@
-package neu;
+package primdijkstra;
 
 /**
  * Organisation als MinHeap, d.h. das Element mit der niedrigsten Priorität steht an der Wurzel

@@ -1,4 +1,4 @@
-package neu;
+package primdijkstra;
 
 import org.junit.Test;
 

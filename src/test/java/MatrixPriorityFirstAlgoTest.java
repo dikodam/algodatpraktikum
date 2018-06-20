@@ -1,6 +1,6 @@
-import neu.MatrixPriorityFirstAlgo;
-import neu.Node;
-import neu.Tools;
+import primdijkstra.MatrixPriorityFirstAlgo;
+import primdijkstra.Node;
+import primdijkstra.Tools;
 import org.junit.Test;
 
 public class MatrixPriorityFirstAlgoTest {
