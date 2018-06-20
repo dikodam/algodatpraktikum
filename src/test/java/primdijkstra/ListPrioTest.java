@@ -134,7 +134,8 @@ public class ListPrioTest {
         
          Tools.printAdjacencyList(myAdl, "vorher");
         ListPrio tested = new ListPrio(myAdl);
-        tested.listPriorityFirst(ListPriorityFirstAlgo.PRIM);
+//        tested.listPriorityFirst(ListPriorityFirstAlgo.PRIM);
+        tested.listPriorityFirst(ListPriorityFirstAlgo.DIJKSTRA);
         
         Tools.printArray(tested.getParent(), "parent");
         Tools.printArray(tested.getPriority(), "priority");
