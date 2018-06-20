@@ -36,7 +36,6 @@ public class ListPrioTest {
                                    new Node(3, 3));
         adl[5] = Node.neighborlist(new Node(2, 2), new Node(3, 5),
                                    new Node(4, 4));
-        Tools.printAdjacencyList(adl, "VORHER UNGERICHTET");
         return adl;
     }
     
@@ -49,7 +48,6 @@ public class ListPrioTest {
         adl[3] = Node.neighborlist(new Node(2, 1), new Node(4, 3));
         adl[4] = Node.neighborlist(new Node(1, 4), new Node(2, 2),
                                    new Node(3, 3));
-        Tools.printAdjacencyList(adl, "VORHER UNGERICHTET");
         return adl;
     }
     
@@ -130,17 +128,17 @@ public class ListPrioTest {
     @Test
     public void listPriorityFirst() {
 
-//        myAdl = graphMit6();
+        myAdl = graphMit6();
 //        myAdl = alternativer5Graph();
-        myAdl = prepareListeMit4Ungerichtet();
+//        myAdl = prepareListeMit4Ungerichtet();
         
-        // Tools.printAdjacencyList(myAdl, "vorher");
+         Tools.printAdjacencyList(myAdl, "vorher");
         ListPrio tested = new ListPrio(myAdl);
         tested.listPriorityFirst(ListPriorityFirstAlgo.PRIM);
         
         Tools.printArray(tested.getParent(), "parent");
         Tools.printArray(tested.getPriority(), "priority");
-        Node[] adjacencylist = Tools.buildAdjacencylist(myAdl, tested.getN(), tested.getParent());
+        Node[] adjacencylist = Tools.buildAdjacencylist(myAdl, tested.getN(), tested.getParent(), tested.getPriority());
         Tools.printAdjacencyList(adjacencylist, "nachher");
     }
 }

@@ -38,7 +38,7 @@ public class MatrixPriorityFirstAlgoTest {
         Tools.printArray(tested.getParent(), "parent");
         Tools.printArray(tested.getPriority(), "priority");
         Tools.printMatrix(tested.buildAdm(), "nachher");
-        Node[] adjacencylist = Tools.buildAdjacencylist(myAdm, tested.getN(), tested.getParent());
+        Node[] adjacencylist = Tools.buildAdjacencylist(myAdm, tested.getN(), tested.getParent(), tested.getPriority());
         Tools.printAdjacencyList(adjacencylist, "nachher");
     }
 }

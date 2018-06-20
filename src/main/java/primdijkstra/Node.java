@@ -55,6 +55,6 @@ public class Node {
     
     @Override
     public String toString() {
-        return String.valueOf(value);
+        return String.format("%d(%d)", value, weight);
     }
 }

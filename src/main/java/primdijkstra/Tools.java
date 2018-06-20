@@ -23,6 +23,28 @@ public class Tools {
         return adjacencyList;
     }
     
+    public static <T> Node[] buildAdjacencylist(T[] adl, int n, int[] parent, int[] priority) {
+        Node[] adjacencyList = new Node[adl.length];
+        
+        for (int currNode = 1; currNode <= n; currNode++) {
+            int parentOfCurrNode = parent[currNode];
+            boolean iHasParent = parentOfCurrNode != 0;
+            if (iHasParent) {
+                if (adjacencyList[parentOfCurrNode] == null) {
+                    adjacencyList[parentOfCurrNode] = new Node(currNode, priority[currNode]);
+                } else {
+                    Node value = adjacencyList[parentOfCurrNode];
+                    
+                    while (value.getNext() != null) {
+                        value = value.getNext();
+                    }
+                    value.setNext(new Node(currNode, priority[currNode]));
+                }
+            }
+        }
+        return adjacencyList;
+    }
+    
     public static void printPQ(String message, PriorityQueue pq, int[] parent, int[] priority) {
         System.out.println(message);
         System.out.println("PQ    : " + pq.toString());
@@ -55,7 +77,6 @@ public class Tools {
         }
         System.out.println();
     }
-    
     
     public static void printArray(int[] array, String name) {
         System.out.print("Array " + name + ":[");

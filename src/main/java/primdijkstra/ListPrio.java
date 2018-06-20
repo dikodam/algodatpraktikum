@@ -29,7 +29,6 @@ public class ListPrio {
         }
         for (int key = 1; key <= n; key++) {
             if (priority[key] == -infinite) {
-                System.out.println("[VISIT]: " + key);
                 visit(key);
             }
         }
@@ -58,16 +57,16 @@ public class ListPrio {
         } while (!prioQu.isEmpty());
     }
     
+    private boolean nodeNotVisitedYet(int nodeValue) {
+        return priority[nodeValue] < 0;
+    }
+    
     private int prio(int k, Node node) {
         if (PRIM.equals(mode)) {
             return node.weight;
-        } else {
+        } else { // DIJKSTRA.equals(mode)
             return priority[k] + node.weight;
         }
-    }
-    
-    private boolean nodeNotVisitedYet(int nodeValue) {
-        return priority[nodeValue] < 0;
     }
     
     public int getN() {
